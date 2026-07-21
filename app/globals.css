@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+/* ============================================================
+   VARIABLES DE TEMA · EGT IMPORT
+   Cambia el color de acento aquí en un solo lugar.
+   ============================================================ */
+:root {
+  --accent: #2563eb;        /* Azul tecnológico principal 👈 EDITA */
+  --accent-soft: #3b82f6;   /* Azul secundario para degradados   */
+}
+
+/* Paleta clara (light mode) */
+:root {
+  --bg-from: #f8fafc;
+  --bg-to: #e2e8f0;
+  --card: #ffffff;
+  --card-border: #e2e8f0;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+}
+
+/* Paleta oscura (dark mode) */
+.dark {
+  --bg-from: #0a0f1c;
+  --bg-to: #131a2e;
+  --card: #161d2f;
+  --card-border: #232c44;
+  --text-main: #f1f5f9;
+  --text-muted: #94a3b8;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: linear-gradient(160deg, var(--bg-from), var(--bg-to));
+  min-height: 100vh;
+  color: var(--text-main);
+  transition: background 0.4s ease, color 0.3s ease;
+}
+
+/* Sutil textura de puntos sobre el fondo */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(var(--card-border) 1px, transparent 1px);
+  background-size: 22px 22px;
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: 0;
+}
