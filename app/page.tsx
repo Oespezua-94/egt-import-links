@@ -12,6 +12,15 @@ export default function Home() {
   const activeLinks = links.filter((l) => l.active !== false);
 
   return (
+    <>
+  <div
+  className="pointer-events-none fixed inset-0 z-0"
+  style={{
+    backgroundImage: "radial-gradient(var(--card-border) 1px, transparent 1px)",
+    backgroundSize: "22px 22px",
+    opacity: 0.35,
+  }}
+/>
     <main className="relative z-10 mx-auto flex min-h-screen max-w-md flex-col justify-center px-5 py-12">
       <ThemeToggle />
 
@@ -47,5 +56,6 @@ export default function Home() {
 
       <SocialFooter />
     </main>
+    </>
   );
 }

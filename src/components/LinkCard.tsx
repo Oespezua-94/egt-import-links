@@ -19,11 +19,15 @@ export default function LinkCard({ item, index }: { item: LinkItem; index: numbe
       toPascalCase(item.icon)
     ] ?? Icons.Link;
 
+  // Un enlace es "interno" si empieza con "/" (una página de tu propio sitio,
+  // como /catalogo). Los demás (WhatsApp, Instagram, etc.) son externos.
+  const isInternal = item.url.startsWith("/");
+
   return (
     <motion.a
       href={item.url}
-      target="_blank"
-      rel="noopener noreferrer"
+      target={isInternal ? undefined : "_blank"}
+      rel={isInternal ? undefined : "noopener noreferrer"}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: 0.1 + index * 0.07 }}

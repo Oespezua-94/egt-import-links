@@ -22,11 +22,13 @@ export const metadata: Metadata = {
     images: [brand.seo.ogImage],
   },
 };
+import { Inter } from "next/font/google";
 
+const inter = Inter({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"] });
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es" className="dark" suppressHydrationWarning>
-      <body>{children}</body>
+      <body className={inter.className}>{children}</body>
     </html>
   );
 }

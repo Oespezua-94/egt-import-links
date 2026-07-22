@@ -79,10 +79,10 @@ export const links: LinkItem[] = [
     id: "website",
     title: "Catálogo Virtual",
     subtitle: "Explora todos nuestros productos",
-    url: "https://egtimport.com", // 👈 PENDIENTE: pásame tu web cuando la tengas
+    url: "/catalogo", // 👈 PENDIENTE: pásame tu web cuando la tengas
     icon: "globe",
     highlighted: true,
-    active: false, // 👈 oculto hasta que me pases la URL real
+    active: true, // 👈 oculto hasta que me pases la URL real
   },
   {
     id: "location",
