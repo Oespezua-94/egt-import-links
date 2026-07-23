@@ -18,24 +18,25 @@ function CatalogoContent() {
   const [category, setCategory] = useState("todos");
   const [cartOpen, setCartOpen] = useState(false);
 
-  const {
-    cart,
-    cartCount,
-    cartItems,
-    cartTotal,
-    increment,
-    decrement,
-    sendWhatsapp,
-    wholesaleWhatsappUrl,
-  } = useCart();
+const {
+  cart,
+  cartCount,
+  cartItems,
+  cartTotal,
+  increment,
+  decrement,
+  setQty,
+  sendWhatsapp,
+  wholesaleWhatsappUrl,
+} = useCart();
 
   const bestSeller = products.find((p) => p.bestSeller) || products[0];
 
   const filtered = products.filter((p) => {
-    if (category === "todos") return p.available !== false;
-    if (category === "ofertas") return !!p.sale && p.available !== false;
-    return p.category === category && p.available !== false;
-  });
+  if (category === "todos") return true;
+  if (category === "ofertas") return !!p.sale;
+  return p.category === category;
+});
 
   return (
     <main
@@ -119,6 +120,7 @@ function CatalogoContent() {
             qty={cart[p.id] || 0}
             onIncrement={() => increment(p.id)}
             onDecrement={() => decrement(p.id)}
+            onSetQty={(qty) => setQty(p.id, qty)}
           />
         ))}
       </section>

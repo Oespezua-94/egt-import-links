@@ -2,24 +2,19 @@
  * ============================================================
  *  EGT IMPORT · CATÁLOGO DE PRODUCTOS
  * ============================================================
- *  CÓMO AGREGAR UN PRODUCTO NUEVO:
- *  1. Copia un bloque { ... } de la lista "products".
- *  2. Cambia el "id" (único, ej: "prod-005").
- *  3. Cambia nombre, precio, categoría, fotos.
- *  4. Guarda y sube a GitHub — se publica solo.
- *
- *  OFERTAS:
- *  - Pon "sale" con el precio rebajado. Si no hay oferta: sale: null
- *
- *  PRODUCTO MÁS VENDIDO (aparece en el carrusel principal):
- *  - Marca  bestSeller: true  en un solo producto.
- *
- *  FOTOS:
- *  - Súbelas a /public/productos
- *  - Referéncialas como "/productos/nombre-archivo.jpg"
- *  - Puedes poner varias fotos por producto (array).
+ *  CÓMO EDITAR UN PRODUCTO:
+ *  - price: precio de etiqueta (se muestra tachado)
+ *  - sale: precio de oferta real (el que se cobra). Si no hay
+ *    oferta, pon sale: null y se cobra el "price" normal.
+ *  - stock: unidades disponibles. Si llega a 0, el producto se
+ *    muestra automáticamente como "AGOTADO" (sin ocultarse).
+ *  - wholesale: tramos de precio por mayor (opcional). Cada tramo
+ *    tiene una cantidad mínima y el precio unitario desde esa
+ *    cantidad. El carrito aplica el tramo correcto automáticamente.
  * ============================================================
  */
+
+export type WholesaleTier = { minQty: number; price: number };
 
 export type Product = {
   id: string;
@@ -29,11 +24,11 @@ export type Product = {
   category: string;
   images: string[];
   bestSeller?: boolean;
-  available?: boolean;
+  stock: number;
+  wholesale?: WholesaleTier[];
 };
 
 // ---------- CATEGORÍAS ----------
-// El filtro del catálogo se arma automáticamente con esta lista.
 export const categories = [
   { id: "todos", label: "Todos" },
   { id: "construccion", label: "Construcción" },
@@ -42,17 +37,20 @@ export const categories = [
 ];
 
 // ---------- PRODUCTOS ----------
-// Datos de ejemplo de tu primera importación — edítalos cuando
-// confirmes precios/fotos reales con tus socios.
 export const products: Product[] = [
   {
     id: "excavadora",
     name: "Excavadora a Control Remoto",
-    price: 149,
-    sale: null,
+    price: 180,
+    sale: 130,
     category: "construccion",
-    images: ["/productos/excavadora-rc.jpg"], // 👈 EDITA: tu foto real
-    available: true,
+    images: ["/productos/excavadora-rc.jpg"],
+    stock: 100,
+    wholesale: [
+      { minQty: 6, price: 100 },
+      { minQty: 12, price: 95 },
+      { minQty: 25, price: 90 },
+    ],
   },
   {
     id: "tractor",
@@ -60,8 +58,8 @@ export const products: Product[] = [
     price: 159,
     sale: null,
     category: "construccion",
-    images: ["/productos/tractor-rc.png"], // 👈 EDITA: tu foto real
-    available: true,
+    images: ["/productos/tractor-rc.png"],
+    stock: 0, // 👈 agotado
   },
   {
     id: "volquete",
@@ -69,22 +67,24 @@ export const products: Product[] = [
     price: 169,
     sale: null,
     category: "construccion",
-    images: ["/productos/volquete-rc.png"], // 👈 EDITA: tu foto real
-    available: true,
+    images: ["/productos/volquete-rc.png"],
+    stock: 0, // 👈 agotado
   },
   {
     id: "acrobatico",
     name: "Carro Acrobático a Control Remoto",
-    price: 99,
-    sale: 79,
+    price: 150,
+    sale: 90,
     category: "acrobaticos",
-    images: [
-      "/productos/carro-acrobatico-rc-1.jpg",
-    ], // 👈 EDITA: tus fotos reales
+    images: ["/productos/carro-acrobatico-rc-1.jpg"],
     bestSeller: true,
-    available: true,
+    stock: 100,
+    wholesale: [
+      { minQty: 12, price: 85 },
+      { minQty: 25, price: 80 },
+    ],
   },
 ];
 
 // ---------- NÚMERO DE WHATSAPP PARA PEDIDOS ----------
-export const catalogWhatsappNumber = "51983151255"; // 👈 tu número real
+export const catalogWhatsappNumber = "51983151255";
